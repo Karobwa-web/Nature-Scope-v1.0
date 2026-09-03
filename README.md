@@ -1,373 +1,414 @@
-Nature Scope — your multi-vendor wellness marketplace for Uganda and East Africa. It includes everything from product vision down to detailed GitHub repository requirements to guide development team from Day 1.
+# Nature Scope
 
----
-Nature Scope
+> A trusted multi-vendor wellness marketplace for Uganda and East Africa.
 
-Version: 1.0
-Date: August 2026
-Status: Draft
-Product Manager: [Monday Obadiah]
-Project: Nature Scope Multi-Vendor Wellness Marketplace
+Nature Scope connects health-conscious consumers with trusted vendors of organic products, herbal remedies, and spa and wellness services. This document captures the product vision, requirements, technical direction, delivery plan, and repository standards that will guide the team from Day 1.
 
----
+## Document Control
 
-1. Executive Summary
+| Field | Details |
+| --- | --- |
+| Version | 1.0 |
+| Date | August 2026 |
+| Status | Draft |
+| Product manager | Monday Obadiah |
+| Project | Nature Scope Multi-Vendor Wellness Marketplace |
 
-Nature Scope is a multi-vendor e-commerce marketplace that connects health-conscious consumers across Uganda and East Africa with trusted vendors of organic products, herbal remedies, and spa & wellness services. The platform builds on the established Nature Scope brand in holistic wellness, offering a curated, trusted destination for products and services that support physical and mental wellbeing.
+## Contents
 
-The platform will feature distinct interfaces for Buyers, Vendors (Sellers), and Administrators. It will support product listings, service bookings, mobile money payments (MTN MoMo, Airtel Money), and logistics coordination across the region.
+- [1. Executive Summary](#1-executive-summary)
+- [2. Product Vision and Goals](#2-product-vision-and-goals)
+- [3. User Personas and Roles](#3-user-personas-and-roles)
+- [4. Functional Requirements](#4-functional-requirements)
+- [5. Non-Functional Requirements](#5-non-functional-requirements)
+- [6. Technical Architecture and Stack](#6-technical-architecture-and-stack)
+- [7. Payment and Logistics Integration](#7-payment-and-logistics-integration)
+- [8. GitHub Repository Requirements](#8-github-repository-requirements)
+- [9. Implementation Roadmap](#9-implementation-roadmap)
+- [10. Risks and Mitigation](#10-risks-and-mitigation)
+- [11. Appendix](#11-appendix)
+- [12. Approval](#12-approval)
 
-1.1 Problem Statement
+## 1. Executive Summary
 
-Consumers in Uganda and East Africa struggle to find authentic, high-quality organic and wellness products in one trusted place. Vendors (herbalists, organic farmers, spas) lack a dedicated platform to reach their target audience, relying on fragmented channels like WhatsApp and physical markets. General e-commerce platforms do not cater to the specific needs of wellness vendors or the trust requirements of health-conscious buyers.
+Nature Scope is a multi-vendor e-commerce marketplace for Uganda and East Africa. It provides a curated and trusted destination for organic products, herbal remedies, and spa and wellness services, building on the established Nature Scope brand in holistic wellness.
 
-1.2 Opportunity
+The platform will provide distinct experiences for three audiences:
 
-The wellness economy in East Africa is growing rapidly. With rising health awareness, increasing smartphone penetration, and the ubiquity of mobile money, there is a clear market gap for a specialized wellness marketplace. Nature Scope is uniquely positioned to fill this gap, leveraging its brand equity in holistic wellness.
+- **Buyers** discovering and purchasing products or booking services.
+- **Vendors** listing products, managing orders, and growing their businesses.
+- **Administrators** approving vendors, moderating listings, and overseeing platform operations.
 
----
+The marketplace will support product listings, service bookings, mobile money payments through MTN MoMo and Airtel Money, card payments, and logistics coordination across the region.
 
-2. Product Vision & Goals
+### 1.1 Problem Statement
 
-2.1 Vision
+Consumers in Uganda and East Africa often struggle to find authentic, high-quality organic and wellness products in one trusted place. Vendors such as herbalists, organic farmers, and spa owners lack a dedicated platform for reaching their target audiences and often rely on fragmented channels such as WhatsApp and physical markets.
 
-To become East Africa's most trusted digital home for holistic wellness — where every organic product, herbal remedy, and wellness service is just a click away.
+General e-commerce platforms do not adequately address the needs of wellness vendors or the trust requirements of health-conscious buyers.
 
-2.2 Goals (Success Metrics)
+### 1.2 Opportunity
 
-· Launch: Onboard 50+ vendors and 500+ active users within 3 months of launch.
-· Transaction Volume: Process 1,000+ orders in the first 6 months.
-· Vendor Retention: Achieve 80% vendor retention rate after 6 months.
-· Customer Satisfaction: Maintain a 4.5+ star average rating across platform.
+The wellness economy in East Africa is growing rapidly. Rising health awareness, increasing smartphone adoption, and the widespread use of mobile money create a clear market opportunity for a specialized wellness marketplace.
 
----
+Nature Scope is positioned to address this opportunity by combining a trusted wellness brand with a curated marketplace experience designed for regional consumers and vendors.
 
-3. User Personas & Roles
+## 2. Product Vision and Goals
+
+### 2.1 Vision
+
+> To become East Africa's most trusted digital home for holistic wellness, where every organic product, herbal remedy, and wellness service is just a click away.
+
+### 2.2 Goals and Success Metrics
+
+| Goal | Target |
+| --- | --- |
+| Launch | Onboard more than 50 vendors and 500 active users within the first 3 months. |
+| Transaction volume | Process more than 1,000 orders within the first 6 months. |
+| Vendor retention | Achieve an 80% vendor retention rate after 6 months. |
+| Customer satisfaction | Maintain an average platform rating of at least 4.5 stars. |
+
+## 3. User Personas and Roles
 
 The platform supports three primary user roles:
 
-Role Description Key Needs
-Buyer Health-conscious consumer in Uganda/East Africa Discover products, trust authenticity, easy checkout with mobile money, track orders
-Vendor Wellness product maker, herbalist, spa owner List products, manage inventory, receive payments, analytics dashboard
-Admin Nature Scope platform operator Approve vendors, moderate listings, manage commissions, oversee platform health
+| Role | Description | Key needs |
+| --- | --- | --- |
+| Buyer | A health-conscious consumer in Uganda or East Africa. | Discover products, verify authenticity, check out easily with mobile money, and track orders. |
+| Vendor | A wellness product maker, herbalist, organic farmer, or spa owner. | List products or services, manage inventory, receive payments, and view performance analytics. |
+| Administrator | A Nature Scope platform operator. | Approve vendors, moderate listings, manage commissions, and oversee platform health. |
 
----
+## 4. Functional Requirements
 
-4. Functional Requirements
+Priority levels are defined as follows:
 
-4.1 Buyer-Facing Features
+- **P0:** Must-have for the initial release.
+- **P1:** Important follow-up capability.
+- **P2:** Nice-to-have capability for a later phase.
 
-# Feature Description Priority
-FR-B1 User Registration/Login Email, phone (OTP), or social login P0
-FR-B2 Product/Service Discovery Search, filters (category, price, rating, location), sorting P0
-FR-B3 Product Detail Page Images, description, vendor info, reviews, pricing, add to cart P0
-FR-B4 Shopping Cart Add/remove items, quantity updates, cart summary P0
-FR-B5 Checkout Address collection, delivery option selection, payment gateway P0
-FR-B6 Payment MTN MoMo, Airtel Money, bank card (via PesaPal/Flutterwave) P0
-FR-B7 Order Tracking Real-time order status (Pending → Processing → Shipped → Delivered) P1
-FR-B8 Reviews & Ratings Rate products and vendors, write reviews P1
-FR-B9 Wishlist Save favorite products for later P2
-FR-B10 Vendor Storefront View all products from a specific vendor, see vendor rating and info P1
-FR-B11 Service Booking For spa/therapy services: view availability, book appointment slots P1
+### 4.1 Buyer-Facing Features
 
-4.2 Vendor-Facing Features
-[9/3/2026 2:26 PM] M. O. Ndabananiye: # Feature Description Priority
-FR-V1 Vendor Registration Application form with business details, product categories, documents P0
-FR-V2 Vendor Dashboard Overview of sales, orders, earnings, and performance metrics P0
-FR-V3 Product Management Add/edit/delete products: title, description, price, images, stock, category P0
-FR-V4 Order Management View incoming orders, update status (processing, shipped, delivered) P0
-FR-V5 Payout Management View earnings, payout history, withdrawal requests P1
-FR-V6 Analytics Sales reports, top-selling products, customer insights P2
-FR-V7 Service Management For spa vendors: manage service listings, availability calendar, bookings P1
-FR-V8 Vendor Profile Public storefront with branding, description, contact info, social links P1
-FR-V9 Review Management View and respond to customer reviews P2
+| ID | Feature | Description | Priority |
+| --- | --- | --- | --- |
+| FR-B1 | User registration and login | Support email, phone number with OTP, and social login. | P0 |
+| FR-B2 | Product and service discovery | Provide search, category, price, rating, and location filters, plus sorting. | P0 |
+| FR-B3 | Product detail page | Display images, description, vendor information, reviews, pricing, and an add-to-cart action. | P0 |
+| FR-B4 | Shopping cart | Support adding and removing items, updating quantities, and viewing a cart summary. | P0 |
+| FR-B5 | Checkout | Collect an address, provide delivery options, and connect to a payment gateway. | P0 |
+| FR-B6 | Payments | Support MTN MoMo, Airtel Money, and bank cards through PesaPal or Flutterwave. | P0 |
+| FR-B7 | Order tracking | Show real-time order status: Pending, Processing, Shipped, and Delivered. | P1 |
+| FR-B8 | Reviews and ratings | Allow buyers to rate products and vendors and write reviews. | P1 |
+| FR-B9 | Wishlist | Allow buyers to save favorite products for later. | P2 |
+| FR-B10 | Vendor storefront | Show a vendor's products, rating, and profile information. | P1 |
+| FR-B11 | Service booking | Allow buyers to view availability and book appointment slots for spa and therapy services. | P1 |
 
-4.3 Admin-Facing Features
+### 4.2 Vendor-Facing Features
 
-# Feature Description Priority
-FR-A1 Admin Dashboard Platform-wide KPIs: total vendors, orders, revenue, commissions P0
-FR-A2 Vendor Approval Review and approve/reject vendor applications, verify documents P0
-FR-A3 Product Moderation Review product listings for quality, authenticity, and compliance P0
-FR-A4 Commission Management Set and adjust commission rates per vendor or category P1
-FR-A5 Payment Reconciliation Track vendor payouts, platform revenue, transaction logs P1
-FR-A6 User Management View/block buyers and vendors, handle disputes P1
-FR-A7 Content Management Manage categories, banners, promotional content P1
-FR-A8 Logistics Management Partner delivery integration, order assignment to couriers P2
-FR-A9 Analytics & Reports Sales trends, vendor performance, customer acquisition data P2
+| ID | Feature | Description | Priority |
+| --- | --- | --- | --- |
+| FR-V1 | Vendor registration | Collect business details, product categories, and supporting documents. | P0 |
+| FR-V2 | Vendor dashboard | Show sales, orders, earnings, and performance metrics. | P0 |
+| FR-V3 | Product management | Add, edit, and delete products, including title, description, price, images, stock, and category. | P0 |
+| FR-V4 | Order management | View incoming orders and update their status to Processing, Shipped, or Delivered. | P0 |
+| FR-V5 | Payout management | Show earnings and payout history and support withdrawal requests. | P1 |
+| FR-V6 | Analytics | Provide sales reports, top-selling products, and customer insights. | P2 |
+| FR-V7 | Service management | Allow spa vendors to manage services, availability calendars, and bookings. | P1 |
+| FR-V8 | Vendor profile | Provide a public storefront with branding, description, contact information, and social links. | P1 |
+| FR-V9 | Review management | Allow vendors to view and respond to customer reviews. | P2 |
 
----
+### 4.3 Admin-Facing Features
 
-5. Non-Functional Requirements
+| ID | Feature | Description | Priority |
+| --- | --- | --- | --- |
+| FR-A1 | Admin dashboard | Show platform-wide KPIs, including total vendors, orders, revenue, and commissions. | P0 |
+| FR-A2 | Vendor approval | Review, approve, or reject vendor applications and verify documents. | P0 |
+| FR-A3 | Product moderation | Review product listings for quality, authenticity, and compliance. | P0 |
+| FR-A4 | Commission management | Set and adjust commission rates by vendor or category. | P1 |
+| FR-A5 | Payment reconciliation | Track vendor payouts, platform revenue, and transaction logs. | P1 |
+| FR-A6 | User management | View or block buyers and vendors and handle disputes. | P1 |
+| FR-A7 | Content management | Manage categories, banners, and promotional content. | P1 |
+| FR-A8 | Logistics management | Integrate delivery partners and assign orders to couriers. | P2 |
+| FR-A9 | Analytics and reports | Provide sales trends, vendor performance, and customer acquisition data. | P2 |
 
-# Requirement Description
-NFR-1 Performance Page load time < 3 seconds; API response < 500ms
-NFR-2 Scalability Support 100+ concurrent users at launch; scale to 1,000+
-NFR-3 Security HTTPS, encrypted user data, secure payment tokenization, regular security audits
-NFR-4 Availability 99.5% uptime (SLA)
-NFR-5 Mobile-First Fully responsive; optional native mobile app (Phase 2)
-NFR-6 Localization Support UGX currency; MTN MoMo & Airtel Money integration
-NFR-7 Data Privacy GDPR-compliant data handling; user consent for marketing
-NFR-8 Backup Daily automated database backups; disaster recovery plan
+## 5. Non-Functional Requirements
 
----
+| ID | Requirement | Description |
+| --- | --- | --- |
+| NFR-1 | Performance | Page load time should be less than 3 seconds, with API responses under 500 ms. |
+| NFR-2 | Scalability | Support at least 100 concurrent users at launch and scale to more than 1,000 users. |
+| NFR-3 | Security | Use HTTPS, encrypt user data, securely tokenize payments, and perform regular security audits. |
+| NFR-4 | Availability | Target 99.5% uptime under the service-level agreement. |
+| NFR-5 | Mobile-first experience | Provide a fully responsive web experience, with an optional native mobile app in Phase 2. |
+| NFR-6 | Localization | Support UGX currency and MTN MoMo and Airtel Money integrations. |
+| NFR-7 | Data privacy | Apply GDPR-compliant data handling and obtain user consent for marketing communications. |
+| NFR-8 | Backup and recovery | Run daily automated database backups and maintain a disaster recovery plan. |
 
-6. Technical Architecture & Stack
+## 6. Technical Architecture and Stack
 
-6.1 Recommended Tech Stack (Option A: Custom Build)
+### 6.1 Recommended Stack: Custom Build
 
-Layer Technology Rationale
-Frontend React.js / Next.js Fast, SEO-friendly, component-based UI
-Backend Node.js + Express.js Full-stack JavaScript, large ecosystem, REST API
-Database PostgreSQL Robust relational DB, supports complex queries, JSON fields
-Authentication JWT (JSON Web Tokens) Stateless, scalable auth
-Payments PesaPal / Flutterwave + MTN/Airtel APIs Local payment gateways with mobile money support
-Hosting AWS / Google Cloud / Local (e.g., Rackspace) Scalable cloud infrastructure
-Search Elasticsearch / Meilisearch Fast product search with filters
-File Storage AWS S3 / Cloudinary Product images and media
-CI/CD GitHub Actions Automated testing and deployment
+| Layer | Technology | Rationale |
+| --- | --- | --- |
+| Frontend | React.js or Next.js | Fast, component-based development with SEO support. |
+| Backend | Node.js with Express.js | Full-stack JavaScript, a large ecosystem, and REST API support. |
+| Database | PostgreSQL | A robust relational database supporting complex queries and JSON fields. |
+| Authentication | JWT (JSON Web Tokens) | Stateless and scalable authentication. |
+| Payments | PesaPal, Flutterwave, and MTN/Airtel APIs | Local and regional payment support, including mobile money. |
+| Hosting | AWS, Google Cloud, or a local provider such as Rackspace | Scalable cloud infrastructure. |
+| Search | Elasticsearch or Meilisearch | Fast product search with filtering. |
+| File storage | AWS S3 or Cloudinary | Storage for product images and other media. |
+| CI/CD | GitHub Actions | Automated testing and deployment. |
 
-6.2 Alternative: WordPress + Dokan (Faster MVP)
+### 6.2 Alternative Stack: WordPress and Dokan
 
-Layer Technology
-CMS WordPress
-E-commerce WooCommerce
-Multi-Vendor Dokan Pro
-Hosting Managed WordPress hosting
-Payments WooCommerce-compatible gateways (PesaPal, Flutterwave)
+This option is recommended for a faster MVP launch.
 
-Recommendation: Start with WordPress + Dokan for a faster, cost-effective MVP (4–6 weeks to launch). Transition to a custom build (Node.js + React) in Year 2 as the platform scales.
+| Layer | Technology |
+| --- | --- |
+| CMS | WordPress |
+| E-commerce | WooCommerce |
+| Multi-vendor platform | Dokan Pro |
+| Hosting | Managed WordPress hosting |
+| Payments | WooCommerce-compatible gateways, including PesaPal and Flutterwave |
 
----
+**Recommendation:** Start with WordPress and Dokan for a cost-effective MVP that can launch in 4 to 6 weeks. Transition to a custom Node.js and React build in Year 2 as the platform scales.
 
-7. Payment & Logistics Integration (Uganda-Specific)
+## 7. Payment and Logistics Integration
 
-7.1 Payment Gateways
+### 7.1 Payment Gateways
 
-Gateway Supported Methods Notes
-PesaPal MTN MoMo, Airtel Money, Cards Widely used in Uganda; supports redirect flow
-Flutterwave Mobile Money, Cards Pan-African; strong API documentation
-Pegasus (PegPay) MTN MoMo, Airtel Money Local aggregator; real-time settlement
-Yo! Uganda Mobile Money Established local provider
+| Gateway | Supported methods | Notes |
+| --- | --- | --- |
+| PesaPal | MTN MoMo, Airtel Money, and cards | Widely used in Uganda and supports a redirect flow. |
+| Flutterwave | Mobile money and cards | Pan-African coverage with strong API documentation. |
+| Pegasus (PegPay) | MTN MoMo and Airtel Money | Local aggregator with real-time settlement. |
+| Yo! Uganda | Mobile money | Established local provider. |
 
-Payment Flow:
-[9/3/2026 2:26 PM] M. O. Ndabananiye: 1. Buyer selects mobile money or card at checkout.
-2. Payment gateway processes transaction.
-3. Funds are held in escrow (or directly settled).
-4. Platform deducts commission.
-5. Remaining amount is released to vendor (scheduled payout).
+### 7.2 Payment Flow
 
-7.2 Logistics & Delivery
+1. The buyer selects mobile money or card payment at checkout.
+2. The payment gateway processes the transaction.
+3. Funds are held in escrow or settled directly, depending on the gateway arrangement.
+4. The platform deducts its commission.
+5. The remaining amount is released to the vendor through a scheduled payout.
 
-Option Description
-Vendor Self-Delivery Vendors manage their own delivery (simplest for MVP)
-Platform-Managed Delivery Partner with local couriers (SafeBoda, courier services) for bulk rates
-Hybrid Vendors can choose self-delivery or platform delivery
+### 7.3 Logistics and Delivery Options
 
----
+| Option | Description |
+| --- | --- |
+| Vendor self-delivery | Vendors manage their own deliveries. This is the simplest MVP option. |
+| Platform-managed delivery | The platform partners with local couriers, such as SafeBoda and other courier services, to negotiate bulk rates. |
+| Hybrid delivery | Vendors can choose between self-delivery and platform-managed delivery. |
 
-8. GitHub Repository Requirements
+## 8. GitHub Repository Requirements
 
-8.1 Repository Structure
+### 8.1 Repository Structure
 
-The project will be hosted on GitHub with the following structure:
+The project will be hosted on GitHub with the following proposed structure:
 
+```text
 nature-scope/
-├── .github/
-│   ├── workflows/
-│   │   ├── ci.yml              # Continuous Integration
-│   │   ├── cd.yml              # Continuous Deployment
-│   │   └── security-scan.yml   # Security vulnerability scanning
-│   ├── ISSUE_TEMPLATE/
-│   │   ├── bug_report.md
-│   │   ├── feature_request.md
-│   │   └── vendor_onboarding.md
-│   └── PULL_REQUEST_TEMPLATE.md
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── hooks/
-│   │   ├── utils/
-│   │   └── styles/
-│   ├── public/
-│   ├── package.json
-│   └── README.md
-├── backend/
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── middleware/
-│   │   ├── services/
-│   │   └── utils/
-│   ├── tests/
-│   ├── package.json
-│   └── README.md
-├── database/
-│   ├── migrations/
-│   └── seeds/
-├── docs/
-│   ├── PRD.md                   # This document
-│   ├── architecture.md
-│   ├── api-specification.yaml   # OpenAPI spec
-│   └── DEV_SETUP.md             # Local development setup guide[reference:19]
-├── docker-compose.yml
-├── .gitignore[reference:20]
-├── README.md[reference:21]
-├── CONTRIBUTING.md[reference:22]
-└── LICENSE
-8.2 Branching Strategy
+|-- .github/
+|   |-- workflows/
+|   |   |-- ci.yml                  # Continuous integration
+|   |   |-- cd.yml                  # Continuous deployment
+|   |   `-- security-scan.yml       # Security vulnerability scanning
+|   |-- ISSUE_TEMPLATE/
+|   |   |-- bug_report.md
+|   |   |-- feature_request.md
+|   |   `-- vendor_onboarding.md
+|   `-- PULL_REQUEST_TEMPLATE.md
+|-- frontend/
+|   |-- src/
+|   |   |-- components/
+|   |   |-- pages/
+|   |   |-- hooks/
+|   |   |-- utils/
+|   |   `-- styles/
+|   |-- public/
+|   |-- package.json
+|   `-- README.md
+|-- backend/
+|   |-- src/
+|   |   |-- controllers/
+|   |   |-- models/
+|   |   |-- routes/
+|   |   |-- middleware/
+|   |   |-- services/
+|   |   `-- utils/
+|   |-- tests/
+|   |-- package.json
+|   `-- README.md
+|-- database/
+|   |-- migrations/
+|   `-- seeds/
+|-- docs/
+|   |-- PRD.md
+|   |-- architecture.md
+|   |-- api-specification.yaml    # OpenAPI specification
+|   `-- DEV_SETUP.md              # Local development setup guide
+|-- docker-compose.yml
+|-- .gitignore
+|-- README.md
+|-- CONTRIBUTING.md
+`-- LICENSE
+```
 
-Branch Purpose
-main Production-ready code; protected, requires PR approval
-develop Integration branch for all feature work
-feature/* Individual features (e.g., feature/vendor-dashboard)
-hotfix/* Emergency fixes to production
+### 8.2 Branching Strategy
 
-Git Flow:
+| Branch | Purpose |
+| --- | --- |
+| `main` | Production-ready code. Protected and requires pull request approval. |
+| `develop` | Integration branch for feature work. |
+| `feature/*` | Individual features, such as `feature/vendor-dashboard`. |
+| `hotfix/*` | Emergency fixes for production. |
 
-1. Developers create feature/* branches from develop.
-2. Open Pull Request to develop with at least one reviewer.
-3. After testing, merge develop → main for releases.
-4. Tag releases with semantic versioning (v1.0.0, v1.1.0, etc.).
+#### Git Flow
 
-8.3 CI/CD Pipeline (GitHub Actions)
+1. Developers create `feature/*` branches from `develop`.
+2. Developers open a pull request into `develop` with at least one reviewer.
+3. After testing, the team merges `develop` into `main` for releases.
+4. Releases are tagged using semantic versioning, such as `v1.0.0` and `v1.1.0`.
 
-Workflow: ci.yml — Runs on every push to develop and main:
+### 8.3 CI/CD Pipeline
 
-· Lint code (ESLint for JS/TS)
-· Run unit tests
-· Run integration tests
-· Build frontend and backend
-· Security scan (npm audit, Snyk)
+#### Continuous integration: `ci.yml`
 
-Workflow: cd.yml — Runs on merge to main:
+This workflow runs on every push to `develop` and `main` and will:
 
-· Build Docker images
-· Push to container registry
-· Deploy to staging environment
-· Run smoke tests
-· Promote to production after approval
+- Lint JavaScript and TypeScript code with ESLint.
+- Run unit tests.
+- Run integration tests.
+- Build the frontend and backend.
+- Run security scans with tools such as `npm audit` and Snyk.
 
-8.4 Issue Tracking
+#### Continuous deployment: `cd.yml`
 
-All work will be tracked via GitHub Issues with the following labels:
+This workflow runs after merges into `main` and will:
 
-Label Purpose
-bug Something isn't working
-feature New feature request
-enhancement Improvement to existing feature
-documentation Docs-related work
-priority:high Must-do immediately
-priority:medium Important but not blocking
-priority:low Nice-to-have
-good-first-issue For new contributors
+- Build Docker images.
+- Push images to a container registry.
+- Deploy to the staging environment.
+- Run smoke tests.
+- Promote the release to production after approval.
 
-Issue Template (for features) will include:
+### 8.4 Issue Tracking
 
-· User Story: As a [role], I want [goal] so that [benefit].
-· Acceptance Criteria: List of conditions that must be met.
-· Technical Notes: Relevant technical details.
-· Design/Mockups: Link to Figma.
+All work will be tracked through GitHub Issues using these labels:
 
-8.5 Pull Request Requirements
+| Label | Purpose |
+| --- | --- |
+| `bug` | Something is not working. |
+| `feature` | A new feature request. |
+| `enhancement` | An improvement to an existing feature. |
+| `documentation` | Documentation-related work. |
+| `priority:high` | Must be handled immediately. |
+| `priority:medium` | Important but not blocking. |
+| `priority:low` | Nice to have. |
+| `good-first-issue` | Suitable for new contributors. |
 
-Each PR must include:
+Feature issue templates will include:
 
-· Description: What does this PR do? Why?
-· Testing: How was this tested? (manual, automated)
-· Screenshots: For UI changes.
-· Checklist:
-  ☐ Code follows style guidelines
-  ☐ Tests added/updated
-  ☐ Documentation updated
-  ☐ No new vulnerabilities introduced
-· Reviewers: At least one reviewer required before merge.
+- **User story:** As a `[role]`, I want `[goal]` so that `[benefit]`.
+- **Acceptance criteria:** The conditions that must be met.
+- **Technical notes:** Relevant implementation details.
+- **Design or mockups:** A link to the relevant Figma designs.
 
-8.6 Code Quality Standards
+### 8.5 Pull Request Requirements
 
-· Frontend: React/Next.js best practices; component-based architecture; reusable UI components.
-[9/3/2026 2:26 PM] M. O. Ndabananiye: · Backend: RESTful API design; proper error handling; input validation; logging.
-· Database: Use migrations for schema changes; write efficient queries; index frequently queried fields.
-· Testing: Minimum 70% test coverage (unit + integration).
-· Documentation: Inline comments for complex logic; API endpoints documented in OpenAPI.
+Every pull request must include:
 
-8.7 Repository Access & Permissions
+- **Description:** What the pull request does and why.
+- **Testing:** How it was tested, including manual and automated testing.
+- **Screenshots:** Required for user-interface changes.
+- **Checklist:**
+  - [ ] Code follows the project's style guidelines.
+  - [ ] Tests have been added or updated.
+  - [ ] Documentation has been updated.
+  - [ ] No new vulnerabilities have been introduced.
+- **Reviewers:** At least one reviewer must approve the pull request before it is merged.
 
-Role Permissions
-Owner (Product Manager) Full admin: manage repo, settings, secrets, workflows
-Lead Developer Write access to main, develop; manage PRs
-Developers Write access to develop; create feature branches; open PRs
-Freelancers/Contractors Read access to develop; write to feature branches (invited as collaborators)
+### 8.6 Code Quality Standards
 
-8.8 Initial Repository Setup Checklist
+- **Frontend:** Follow React or Next.js best practices, use component-based architecture, and build reusable UI components.
+- **Backend:** Use RESTful API design, proper error handling, input validation, and logging.
+- **Database:** Use migrations for schema changes, write efficient queries, and index frequently queried fields.
+- **Testing:** Maintain a minimum of 70% unit and integration test coverage.
+- **Documentation:** Add comments for complex logic and document API endpoints in OpenAPI.
 
-☐ Create repository: nature-scope (private initially)
-☐ Initialize with README.md including project overview and setup instructions
-☐ Add .gitignore (Node.js + React template)
-☐ Set up branch protection rules for main and develop:
-  · Require pull request reviews
-  · Require status checks to pass (CI)
-  · Require conversation resolution
-☐ Configure GitHub Actions workflows (ci.yml, cd.yml)
-☐ Set up issue and PR templates
-☐ Invite team members and collaborators
-☐ Add CONTRIBUTING.md
-☐ Add LICENSE (e.g., MIT for open-source components, proprietary for core)
+### 8.7 Repository Access and Permissions
+
+| Role | Permissions |
+| --- | --- |
+| Owner (Product Manager) | Full administration, including repository settings, secrets, and workflows. |
+| Lead Developer | Write access to `main` and `develop` and permission to manage pull requests. |
+| Developers | Write access to `develop`, permission to create feature branches, and permission to open pull requests. |
+| Freelancers and contractors | Read access to `develop` and write access to invited feature branches. |
+
+### 8.8 Initial Repository Setup Checklist
+
+- [ ] Create the `nature-scope` repository, initially as a private repository.
+- [ ] Initialize it with a README containing the project overview and setup instructions.
+- [ ] Add a Node.js and React `.gitignore`.
+- [ ] Set up branch protection rules for `main` and `develop`:
+  - [ ] Require pull request reviews.
+  - [ ] Require CI status checks to pass.
+  - [ ] Require all conversations to be resolved.
+- [ ] Configure the GitHub Actions workflows: `ci.yml`, `cd.yml`, and `security-scan.yml`.
+- [ ] Set up issue and pull request templates.
+- [ ] Invite team members and collaborators.
+- [ ] Add `CONTRIBUTING.md`.
+- [ ] Add a `LICENSE`, such as MIT for open-source components or a proprietary license for the core platform.
+
+## 9. Implementation Roadmap
+
+| Phase | Duration | Key deliverables |
+| --- | --- | --- |
+| Phase 0: Discovery and validation | Weeks 1-2 | Vendor interviews, competitor analysis, and MVP scope definition. |
+| Phase 1: MVP build | Weeks 3-8 | Vendor registration, product listing, shopping cart, checkout, mobile money, and basic administration. |
+| Phase 2: Beta soft launch | Weeks 9-10 | Invite-only testing with 10 vendors and 50 users, followed by bug fixes. |
+| Phase 3: Public launch | Week 12 | Full launch in Kampala and a supporting marketing campaign. |
+| Phase 4: Iteration | Months 4-6 | Service bookings, reviews, analytics, and vendor dashboard enhancements. |
+| Phase 5: Regional expansion | Year 2 | Expansion to Kenya, Tanzania, and Rwanda, plus a native mobile app. |
+
+## 10. Risks and Mitigation
+
+| Risk | Impact | Mitigation |
+| --- | --- | --- |
+| Vendor quality control | Damage to the brand's reputation. | Use a rigorous vendor-vetting process and moderate product listings. |
+| Payment gateway reliability | Lost sales and frustrated users. | Integrate multiple gateways and provide fallback options. |
+| Logistics and delivery failures | Poor customer experience. | Partner with reputable couriers and provide real-time tracking. |
+| Low vendor adoption | An empty or limited marketplace. | Recruit anchor vendors before launch and offer 0% commission for the first 3 months. |
+| Security breach | Data loss and legal liability. | Use encryption, conduct regular audits, and follow secure coding practices. |
+
+## 11. Appendix
+
+### A. Glossary
+
+| Term | Definition |
+| --- | --- |
+| MVP | Minimum Viable Product: the simplest version of a product that delivers value. |
+| P0, P1, P2 | Priority levels: P0 means must-have, P1 means should-have, and P2 means nice-to-have. |
+| Mobile money | A digital wallet service, such as MTN MoMo or Airtel Money, used for payments in Uganda. |
+| Multi-vendor | A platform model in which multiple independent sellers list products or services. |
+| Split payment | A transaction in which payment is divided between the vendor and the platform commission. |
+
+### B. References
+
+- Dokan Multi-Vendor Documentation
+- Sharetribe Marketplace Features
+- Spree Commerce Multi-Vendor Architecture
+- Pegasus Technologies Payment API
+- Uganda Payments Community Resources
+
+## 12. Approval
+
+| Role | Name | Signature | Date |
+| --- | --- | --- | --- |
+| Product Manager | Monday Obadiah |  |  |
+| Lead Developer | Artificial Intelligence |  |  |
+| Business Owner | Nature Scope |  |  |
 
 ---
 
-9. Implementation Roadmap
-
-Phase Duration Key Deliverables
-Phase 0: Discovery & Validation Weeks 1-2 Vendor interviews, competitor analysis, MVP scope definition
-Phase 1: MVP Build Weeks 3-8 Vendor registration, product listing, shopping cart, checkout, mobile money, basic admin
-Phase 2: Beta Soft-Launch Weeks 9-10 Invite-only testing with 10 vendors, 50 users; bug fixes
-Phase 3: Public Launch Week 12 Full launch in Kampala; marketing campaign
-Phase 4: Iteration Months 4-6 Service bookings, reviews, analytics, vendor dashboard enhancements
-Phase 5: Regional Expansion Year 2 Kenya, Tanzania, Rwanda; native mobile app
-
----
-
-10. Risks & Mitigation
-
-Risk Impact Mitigation
-Vendor quality control Brand reputation damage Rigorous vetting process; product moderation
-Payment gateway reliability Lost sales, frustrated users Multiple gateway integration; fallback options
-Logistics/delivery failures Poor customer experience Partner with reputable couriers; real-time tracking
-Low vendor adoption Empty marketplace Recruit anchor vendors pre-launch; 0% commission for 3 months
-Security breach Data loss, legal liability Encryption, regular audits, secure coding practices
-
----
-
-11. Appendix
-
-A. Glossary
-
-Term Definition
-MVP Minimum Viable Product — the simplest version that delivers value
-P0/P1/P2 Priority levels: P0 = must-have, P1 = should-have, P2 = nice-to-have
-Mobile Money Digital wallet service (MTN MoMo, Airtel Money) used for payments in Uganda
-Multi-Vendor Platform model where multiple independent sellers list products
-Split Payment Transaction where payment is divided between vendor and platform commission
-
-B. References
-
-· Dokan Multi-Vendor Documentation
-· Sharetribe Marketplace Features
-· Spree Commerce Multi-Vendor Architecture
-· Pegasus Technologies Payment API
-· Uganda Payments Community Resources
-
----
-
-12. Approval
-
-Role Name Signature Date
-Product Manager [Monday Obadiah]  
-Lead Developer [Artificial Intelligence]  
-Business Owner [Nature Scope]  
-
----
-
-This PRD is your single source of truth for the Nature Scope project.l
+This PRD is the single source of truth for the Nature Scope project.
