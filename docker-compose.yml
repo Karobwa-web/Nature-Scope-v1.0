@@ -1,0 +1,61 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: naturescope-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: naturescope
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/migrations:/docker-entrypoint-initdb.d
+    networks:
+      - naturescope-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: naturescope-backend
+    restart: unless-stopped
+    environment:
+      PORT: 5000
+      NODE_ENV: development
+      DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/naturescope
+      CLIENT_URL: http://localhost:5173
+      JWT_SECRET: dev_jwt_secret_key_12345
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - naturescope-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: naturescope-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - naturescope-network
+
+volumes:
+  pgdata:
+
+networks:
+  naturescope-network:
+    driver: bridge

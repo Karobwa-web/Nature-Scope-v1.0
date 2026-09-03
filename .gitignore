@@ -1,23 +1,26 @@
 # ==========================================
-# NATURE SCOPE - .gitignore
-# Node.js + React + Vite + Supabase
+# Nature Scope - Root .gitignore
+# React + Vite (Frontend) & Node.js + Express (Backend)
 # ==========================================
 
 # Dependencies
 node_modules/
+frontend/node_modules/
+backend/node_modules/
 .pnpm-store/
 .npm/
 
-# Build files
+# Build outputs
 dist/
 build/
-.next/
-out/
+frontend/dist/
+backend/dist/
 
-# Environment variables and secrets
+# Environment and secrets
 .env
 .env.*
 !.env.example
+*.local
 
 # Logs
 logs/
@@ -27,74 +30,33 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Testing
+# Testing & coverage
 coverage/
 
-# Cache and temporary files
+# Cache & temporary files
 .cache/
 .tmp/
 temp/
 *.tmp
 *.temp
-
-# TypeScript
-*.tsbuildinfo
-
-# Vite
 .vite/
+frontend/.vite/
 
 # Operating system files
 .DS_Store
 Thumbs.db
 Desktop.ini
+desktop.ini
 
-# VS Code
+# Editor files
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-
-# JetBrains IDEs
 .idea/
-*.iml
-
-# Editor temporary files
 *.swp
 *.swo
 *~
 
-# Local database files
-*.sqlite
-*.sqlite3
-*.db
-
-# Supabase local files
-supabase/.temp/
-supabase/.branches/
-
-# Vercel
-.vercel/
-
-# Netlify
-.netlify/
-
-# Python cache
-*pycache*/
-*.py[cod]
-
-# Backup files
-*.bak
-*.backup
-
-# Package manager cache
-.yarn/cache/
-.yarn/unplugged/
-.yarn/build-state.yml
-.yarn/install-state.gz
-
-# Firebase
-.firebase/
-
-# Local uploads - if applicable
+# Uploads
 uploads/
+backend/uploads/
