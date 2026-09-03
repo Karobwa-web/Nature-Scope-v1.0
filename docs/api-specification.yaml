@@ -1,0 +1,261 @@
+openapi: 3.0.3
+info:
+  title: Nature Scope REST API
+  description: |
+    Comprehensive API specification for Nature Scope - East Africa's multi-vendor
+    wellness marketplace for organic foods, herbal remedies, natural skincare, and spa therapies.
+  version: 1.0.0
+  contact:
+    name: Nature Scope Technical Team
+    email: support@naturescope.ug
+
+servers:
+  - url: http://localhost:5000/api
+    description: Local Development Server
+  - url: https://api.naturescope.ug/api
+    description: Production Server
+
+tags:
+  - name: Health
+    description: System status and monitoring
+  - name: Authentication
+    description: User registration, login, and JWT session handling
+  - name: Products
+    description: Product catalog, search, filtering, and detail views
+  - name: Vendors
+    description: Vendor profiles, storefronts, and partner information
+  - name: Orders
+    description: Customer order placement and order lifecycle
+  - name: Payments
+    description: Mobile money (MTN MoMo, Airtel Money), cards, and escrow management
+
+paths:
+  /health:
+    get:
+      tags: [Health]
+      summary: Health check endpoint
+      responses:
+        '200':
+          description: API is online and healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: healthy
+                  timestamp:
+                    type: string
+                    example: '2026-09-03T16:00:00.000Z'
+                  service:
+                    type: string
+                    example: Nature Scope API v1.0
+                  environment:
+                    type: string
+                    example: development
+
+  /auth/register:
+    post:
+      tags: [Authentication]
+      summary: Register a new buyer or vendor account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [full_name, email, password]
+              properties:
+                full_name:
+                  type: string
+                  example: Sarah Nalubega
+                email:
+                  type: string
+                  format: email
+                  example: sarah@example.com
+                phone:
+                  type: string
+                  example: '256771234567'
+                password:
+                  type: string
+                  format: password
+                  example: P@ssw0rd123!
+                role:
+                  type: string
+                  enum: [buyer, vendor]
+                  default: buyer
+      responses:
+        '201':
+          description: User successfully registered
+        '400':
+          description: Validation error or existing account
+
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: Authenticate user and receive JWT bearer token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  token:
+                    type: string
+                  user:
+                    type: object
+
+  /products:
+    get:
+      tags: [Products]
+      summary: Browse and filter wellness products
+      parameters:
+        - name: category
+          in: query
+          description: Filter by wellness category
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search title, description, or vendor
+          schema:
+            type: string
+        - name: minPrice
+          in: query
+          schema:
+            type: number
+        - name: maxPrice
+          in: query
+          schema:
+            type: number
+      responses:
+        '200':
+          description: List of products matching filters
+
+  /products/{id}:
+    get:
+      tags: [Products]
+      summary: Get product details by ID or slug
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product details
+        '404':
+          description: Product not found
+
+  /vendors:
+    get:
+      tags: [Vendors]
+      summary: List all approved wellness vendors
+      responses:
+        '200':
+          description: List of verified vendors
+
+  /vendors/{id}:
+    get:
+      tags: [Vendors]
+      summary: Get vendor storefront details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Vendor profile
+
+  /orders:
+    post:
+      tags: [Orders]
+      summary: Create a new marketplace order
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [items, delivery_address, delivery_phone]
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                      quantity:
+                        type: integer
+                      price_ugx:
+                        type: number
+                delivery_address:
+                  type: string
+                  example: Plot 18 Bukoto Street, Kampala
+                delivery_phone:
+                  type: string
+                  example: '256772112233'
+                notes:
+                  type: string
+      responses:
+        '201':
+          description: Order created successfully
+
+  /payments/initiate:
+    post:
+      tags: [Payments]
+      summary: Initiate mobile money prompt or card checkout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [order_id, amount_ugx, gateway]
+              properties:
+                order_id:
+                  type: string
+                amount_ugx:
+                  type: number
+                gateway:
+                  type: string
+                  enum: [mtn_momo, airtel_money, pesapal, card]
+                phone:
+                  type: string
+                  example: '256770123456'
+                email:
+                  type: string
+      responses:
+        '200':
+          description: Payment initiated successfully
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

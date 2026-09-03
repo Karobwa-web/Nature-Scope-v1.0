@@ -55,6 +55,10 @@ Nature-Scope-v1.0/
 ├── docs/                     # Project documentation
 │   ├── PRD.md                # Comprehensive Product Requirements Document
 │   ├── architecture.md       # High-level architecture and system boundaries
+│   ├── api-specification.yaml# OpenAPI 3.0 API Specification
+│   ├── PAYMENTS.md           # Uganda mobile money & escrow integration guide
+│   ├── COMPLIANCE_AND_KYC.md # NDA/UNBS regulations and vendor vetting
+│   ├── ROADMAP.md            # 6-week Phase 1 MVP implementation sprint plan
 │   └── DEV_SETUP.md          # Local developer setup and running guide
 ├── docker-compose.yml        # Multi-container orchestration (DB, API, Web)
 ├── .gitignore                # Optimized repository ignore rules
@@ -80,7 +84,7 @@ cd Nature-Scope-v1.0
 # Start backend, frontend, and PostgreSQL services
 docker compose up -d
 ```
-- **Web App**: `http://localhost:5173`
+- **Web App**: `http://localhost:3000`
 - **REST API**: `http://localhost:5000/api`
 - **Health Check**: `http://localhost:5000/api/health`
 
@@ -92,6 +96,10 @@ For complete local step-by-step installation instructions without Docker, refer 
 
 - [Product Requirements Document (PRD)](docs/PRD.md)
 - [System Architecture](docs/architecture.md)
+- [OpenAPI Specification](docs/api-specification.yaml)
+- [Payment & Escrow Integration Guide](docs/PAYMENTS.md)
+- [Regulatory Compliance & KYC Guidelines](docs/COMPLIANCE_AND_KYC.md)
+- [Phase 1 MVP Sprint Plan](docs/ROADMAP.md)
 - [Local Development Setup](docs/DEV_SETUP.md)
 - [Contributing Guidelines](CONTRIBUTING.md)
 
